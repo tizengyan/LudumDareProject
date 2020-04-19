@@ -7,20 +7,24 @@ public class PlayerController : MonoBehaviour {
     private float jumpStrength = 1f;
     [SerializeField]
     private int hitPoint = 3;
+    [SerializeField]
+    private AudioClip jumpSound, landSound, hitSound;
 
     float startDelay = 2f;
     bool gameIsOver = false;
     bool isGrounded = false;
     Rigidbody2D rb2d;
     Animator animator;
+    AudioSource audioSource;
 
     public void SetGameIsOver(bool isOver) {
         gameIsOver = isOver;
     }
 
     void Start() {
-        rb2d = gameObject.GetComponent<Rigidbody2D>();
-        animator = gameObject.GetComponent<Animator>();
+        rb2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         gameIsOver = false;
         startDelay = GameManager.GetInstance().GameStartDelay();
         Invoke("Run", startDelay);
@@ -29,7 +33,8 @@ public class PlayerController : MonoBehaviour {
     void Update() {
         if (!gameIsOver) {
             if (startDelay < 0) {
-                if (rb2d && Input.GetKeyDown("space")) {
+                if (rb2d && isGrounded && Input.GetKeyDown("space")) {
+                    audioSource.PlayOneShot(jumpSound);
                     rb2d.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
                 }
             }
@@ -42,27 +47,31 @@ public class PlayerController : MonoBehaviour {
     void Run() {
         animator.SetBool("isRunning", true);
         animator.SetBool("isJumping", false);
+        //audioSource.Play();
     }
 
     void Die() {
-        // animator.SetBool("isDead", true);
+        Debug.Log("Dead");
         GameManager.GetInstance().GameOver();
         animator.SetBool("gameIsOver", true);
     }
 
     void Damage() {
+        Debug.Log("Damaged");
+        audioSource.PlayOneShot(hitSound);
         hitPoint -= 1;
         if (hitPoint <= 0) {
             Die();
         }
+        animator.SetTrigger("hit");
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag == "Obstacle") {
-            GameManager.GetInstance().GameOver();
-            animator.SetBool("gameIsOver", true);
+            Damage();
         }
         else if (collision.gameObject.tag == "Ground") {
+            audioSource.PlayOneShot(landSound);
             isGrounded = true;
             animator.SetBool("isJumping", false);
         }

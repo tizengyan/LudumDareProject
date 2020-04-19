@@ -30,11 +30,10 @@ public class Spawner : MonoBehaviour {
     IEnumerator Spawning() {
         while (!gameIsOver) {
             spawnInterval = Random.Range(intervalMin, intervalMax);
-            Debug.Log("spawnInterval = " + spawnInterval);
             int spIndex = Random.Range(0, spawnPoints.Length);
             if (spawnPoints.Length > 0) {
-                Debug.Log("spIndex = " + spIndex);
-                Debug.Log(obstaclePrefabs[spIndex]);
+                //Debug.Log("spIndex = " + spIndex);
+                //Debug.Log(obstaclePrefabs[spIndex]);
                 Instantiate(obstaclePrefabs[spIndex], spawnPoints[spIndex].transform.position, Quaternion.identity);
             }
             yield return new WaitForSeconds(spawnInterval);
