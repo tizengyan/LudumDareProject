@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     [SerializeField]
     private float jumpStrength = 1f;
+    [SerializeField]
+    private float startDelay = 2f;
 
     bool gameIsOver = false;
     bool isGrounded = false;
@@ -19,14 +21,19 @@ public class PlayerController : MonoBehaviour {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
         gameIsOver = false;
-        Invoke("run", 2);
+        Invoke("run", startDelay);
     }
 
     // Update is called once per frame
     void Update() {
-        if (!gameIsOver && Input.GetKeyDown("space")) {
-            if (rb2d) {
-                rb2d.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
+        if (!gameIsOver) {
+            if (startDelay < 0) {
+                if (rb2d && Input.GetKeyDown("space")) {
+                    rb2d.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
+                }
+            }
+            else {
+                startDelay -= Time.deltaTime;
             }
         }
     }
@@ -39,8 +46,7 @@ public class PlayerController : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag == "Obstacle") {
             GameManager.GetInstance().gameOver();
-            // stop obstacle and self
-            collision.gameObject.GetComponent<Obstacle>().stopMovement();
+            animator.SetBool("gameIsOver", true);
         }
         else if (collision.gameObject.tag == "Ground") {
             isGrounded = true;
