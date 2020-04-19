@@ -82,7 +82,8 @@ public class UI_MainMenuController : MonoBehaviour
     {
         gameOverPage.SetActive(false);
         gameWinPage.SetActive(false);
-        creditsPage.SetActive(true);
+        mainMenu.SetActive(true);
+        
         Time.timeScale = 1;
         isPaused = false;
     }
