@@ -4,15 +4,37 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour {
     [SerializeField]
-    private float selfDestroyDelay = -1f;
+    private float leftPosX = -15f, rightPosX = 75;
     [SerializeField]
     private float speed = -1f;
+    [SerializeField]
+    private bool isCycle = true;
+    [SerializeField]
+    private float startDelay = -1f;
+
+    bool gameIsOver = false;
 
     void Start() {
-
+        
     }
     
     void Update() {
+        if (!gameIsOver) {
+            if (startDelay < 0) {
+                if (transform.position.x > leftPosX) {
+                    transform.position = new Vector2(transform.position.x + speed * Time.deltaTime, transform.position.y);
+                }
+                else if (isCycle) {
+                    transform.position = new Vector2(rightPosX, transform.position.y);
+                }
+            }
+            else {
+                startDelay -= Time.deltaTime;
+            }
+        }
+    }
 
+    public void stop() {
+        gameIsOver = true;
     }
 }

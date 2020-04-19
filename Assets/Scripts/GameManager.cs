@@ -74,6 +74,13 @@ public class GameManager : MonoBehaviour {
                 ob.GetComponent<Obstacle>().stopMovement();
             }
         }
+        // stop bg movemment
+        GameObject[] bgs = GameObject.FindGameObjectsWithTag("Background");
+        foreach(var bg in bgs) {
+            if (bg.GetComponent<Mover>()) {
+                bg.GetComponent<Mover>().stop();
+            }
+        }
     }
 
     public void restart() {
