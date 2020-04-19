@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6682246846769919661}
   - component: {fileID: 6682246846769919658}
   - component: {fileID: 6682246846769919659}
+  - component: {fileID: -7440829569180693558}
   m_Layer: 0
   m_Name: Enemy_TrashCan
   m_TagString: Obstacle
@@ -94,7 +95,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.056408763, y: -0.5018449}
@@ -148,3 +149,17 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 208cae81d3508b64bad84a3b3b57e9b8, type: 3}
   - {fileID: 21300000, guid: e9bf25d20b47a414aab06815b0a95e57, type: 3}
   - {fileID: 21300000, guid: f3a9f8fcee3b00745a7b3539c7bb39b5, type: 3}
+--- !u!114 &-7440829569180693558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6682246846769919656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b9e6b4fe4d43fb4ca6d63726edb60e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: -5
+  endPointX: -20
