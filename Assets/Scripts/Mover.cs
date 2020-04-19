@@ -9,13 +9,13 @@ public class Mover : MonoBehaviour {
     private float speed = -1f;
     [SerializeField]
     private bool isCycle = true;
-    [SerializeField]
-    private float startDelay = -1f;
 
+    float startDelay = -1f;
     bool gameIsOver = false;
 
     void Start() {
-        
+        startDelay = GameManager.GetInstance().GameStartDelay();
+        //Debug.Log("Mover start delay = " + startDelay);
     }
     
     void Update() {
@@ -34,7 +34,7 @@ public class Mover : MonoBehaviour {
         }
     }
 
-    public void stop() {
+    public void Stop() {
         gameIsOver = true;
     }
 }

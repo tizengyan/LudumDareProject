@@ -8,10 +8,10 @@ public class Spawner : MonoBehaviour {
     [SerializeField]
     private GameObject[] obstaclePrefabs;
     [SerializeField]
-    private float delayMin = 1f, delayMax = 3f;
+    private float intervalMin = 1f, intervalMax = 3f;
 
-    float spawnDelay = 1.5f;
-    float nextSpawnTime;
+    float startDelay = 2f;
+    float spawnInterval = 2.5f;
     bool gameIsOver = false;
 
     public void setGameIsOver(bool isOver) {
@@ -19,26 +19,29 @@ public class Spawner : MonoBehaviour {
     }
 
     void Start() {
-        nextSpawnTime = Time.time + spawnDelay;
+        startDelay = GameManager.GetInstance().GameStartDelay();
+        Invoke("BeginSpawn", startDelay);
+    }
+
+    void BeginSpawn() {
+        StartCoroutine("Spawning");
+    }
+
+    IEnumerator Spawning() {
+        while (!gameIsOver) {
+            spawnInterval = Random.Range(intervalMin, intervalMax);
+            Debug.Log("spawnInterval = " + spawnInterval);
+            int spIndex = Random.Range(0, spawnPoints.Length);
+            if (spawnPoints.Length > 0) {
+                Debug.Log("spIndex = " + spIndex);
+                Debug.Log(obstaclePrefabs[spIndex]);
+                Instantiate(obstaclePrefabs[spIndex], spawnPoints[spIndex].transform.position, Quaternion.identity);
+            }
+            yield return new WaitForSeconds(spawnInterval);
+        }
     }
     
     void Update() {
-        if (!gameIsOver && Time.time > nextSpawnTime) {
-            spawnDelay = Random.Range(delayMin, delayMax);
 
-            nextSpawnTime = Time.time + spawnDelay;
-            int spIndex = Random.Range(0, spawnPoints.Length);
-            if (spawnPoints.Length > 0) {
-                Debug.Log(spIndex);
-                Debug.Log(obstaclePrefabs[spIndex]);
-                int obIndex = Random.Range(0, obstaclePrefabs.Length);
-                Instantiate(obstaclePrefabs[spIndex], spawnPoints[spIndex].transform.position, Quaternion.identity);
-                //if (obstaclePrefabs.Length > 0) {
-                //    Debug.Log(obIndex);
-                //    Debug.Log(obstaclePrefabs[obIndex]);
-                //    Instantiate(obstaclePrefabs[obIndex], spawnPoints[spIndex].transform.position, Quaternion.identity);
-                //}
-            }
-        }
     }
 }
