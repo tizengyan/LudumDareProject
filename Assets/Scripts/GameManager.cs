@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour {
         while (!gameIsOver) {
             curScore += 1;
             score.text = "Score: " + curScore;
-            Debug.Log("Setting score to " + curScore);
+            //Debug.Log("Setting score to " + curScore);
             yield return new WaitForSeconds(1);
         }
     }
