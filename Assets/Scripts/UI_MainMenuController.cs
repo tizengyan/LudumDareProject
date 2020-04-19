@@ -11,6 +11,8 @@ public class UI_MainMenuController : MonoBehaviour
     public GameObject gameOverPage;
     public GameObject gameWinPage;
 
+    public CharacterRandomizer characterController;
+
     public bool isPaused;
 
     public void LoadSwipeScene()
@@ -66,6 +68,8 @@ public class UI_MainMenuController : MonoBehaviour
 
     public void GameOver()
     {
+        characterController.CleanGameData();
+
         gameOverPage.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
@@ -73,6 +77,8 @@ public class UI_MainMenuController : MonoBehaviour
 
     public void GameWin()
     {
+        characterController.CleanGameData();
+
         gameWinPage.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
@@ -82,6 +88,8 @@ public class UI_MainMenuController : MonoBehaviour
     {
         gameOverPage.SetActive(false);
         gameWinPage.SetActive(false);
+        swipeMenu.SetActive(false);
+        creditsPage.SetActive(false);
         mainMenu.SetActive(true);
         
         Time.timeScale = 1;

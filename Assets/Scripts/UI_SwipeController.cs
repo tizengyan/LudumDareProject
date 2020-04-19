@@ -7,8 +7,6 @@ public class UI_SwipeController : MonoBehaviour
     public Animator characterAnimator;
     public GameObject tutorialMenu;
 
-    public int previousCharacterIndex;
-
     public void swipeNo ()
     {
         characterAnimator.SetTrigger("TriggerNo");

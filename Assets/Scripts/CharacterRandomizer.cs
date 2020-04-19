@@ -5,28 +5,67 @@ using UnityEngine.UI;
 
 public class CharacterRandomizer : MonoBehaviour
 {
+    public int maxCharacters;
+    [SerializeField] private int activeCharacter = -1;
+    private int finishedCharacters = 0;
+
     public Image image;
     public Sprite[] characterTexture;
+    public bool[] characterIsSelected;
     public UI_SwipeController swipeController;
+    public UI_MainMenuController UIController;
 
     public void ChangeCharacter()
     {
-        image = gameObject.GetComponent<Image>();
-
-        int i = GetRandomIndex();
-
-        while (i == swipeController.previousCharacterIndex)
+        if (finishedCharacters == maxCharacters)
         {
-            i = GetRandomIndex();
+            UIController.GameWin();
+
+            CleanGameData();
+
+            return;
         }
 
-        swipeController.previousCharacterIndex = i;
+        image = gameObject.GetComponent<Image>();
 
-        image.sprite = characterTexture[i];
+        activeCharacter++;
+
+        if (activeCharacter > maxCharacters - 1)
+        {
+            activeCharacter = 0;
+        }
+
+        if (finishedCharacters != maxCharacters)
+        {
+            while (characterIsSelected[activeCharacter])
+            {
+                activeCharacter++;
+
+                if (activeCharacter > maxCharacters - 1)
+                {
+                    activeCharacter = 0;
+                }
+            }
+        }
+
+        image.sprite = characterTexture[activeCharacter];
     }
 
-    int GetRandomIndex()
+    public void CharacterSelect()
     {
-        return (int)Random.Range(0f, 3f);
+        characterIsSelected[activeCharacter] = true;
+
+        finishedCharacters++;
+    }
+
+    public void CleanGameData()
+    {
+        activeCharacter = -1;
+        finishedCharacters = 0;
+
+        for (int i = 0; i < maxCharacters; i++)
+        {
+            characterIsSelected[i] = false;
+        }
     }
 }
