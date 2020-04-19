@@ -8,6 +8,8 @@ public class UI_MainMenuController : MonoBehaviour
     public GameObject swipeMenu;
     public GameObject pauseMenu;
     public GameObject creditsPage;
+    public GameObject gameOverPage;
+    public GameObject gameWinPage;
 
     public bool isPaused;
 
@@ -42,6 +44,7 @@ public class UI_MainMenuController : MonoBehaviour
     public void Pause()
     {
         pauseMenu.SetActive(true);
+        creditsPage.SetActive(false);
         Time.timeScale = 0f;
         isPaused = true;
     }
@@ -59,5 +62,28 @@ public class UI_MainMenuController : MonoBehaviour
     public void CreditsClose()
     {
         creditsPage.SetActive(false);
+    }
+
+    public void GameOver()
+    {
+        gameOverPage.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
+    }
+
+    public void GameWin()
+    {
+        gameWinPage.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
+    }
+
+    public void Restart()
+    {
+        gameOverPage.SetActive(false);
+        gameWinPage.SetActive(false);
+        creditsPage.SetActive(true);
+        Time.timeScale = 1;
+        isPaused = false;
     }
 }
