@@ -106,7 +106,16 @@ public class PlayerController : MonoBehaviour {
         if (hitPoint > 0) {
             audioSource.PlayOneShot(hitSound);
             hitPoint -= 1;
-            animator.SetTrigger("hit");
+
+            if (isGrounded)
+            {
+                animator.SetTrigger("hit");
+            }
+            else
+            {
+                animator.SetTrigger("hitAir");
+            }
+
         }
         else {
             Die();
