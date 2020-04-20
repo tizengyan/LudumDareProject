@@ -655,6 +655,7 @@ MonoBehaviour:
   gameStartDelay: 1.5
   scoreDemand: 5
   levelLimit: 5
+  speedBase: 1.5
   speedRiseRatio: 0.3
   endHouse: {fileID: 922977340}
 --- !u!4 &674655236
