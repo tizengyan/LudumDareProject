@@ -92,14 +92,18 @@ public class GameManager : MonoBehaviour {
         return instance;
     }
 
-    public void GameOver() {
+    IEnumerator GameOver()
+    {
         Debug.Log("Game Over");
         DataManager.TotalScore += curScore;
-        mainMenu.GetComponent<UI_MainMenuController>().GameOver();
         StopCoroutine("AddScore");
         StopAllObstacles();
         StopPlayer();
         gameIsOver = true;
+
+        yield return new WaitForSeconds(2f);
+
+        mainMenu.GetComponent<UI_MainMenuController>().GameOver();
     }
 
     public void StopGame() {
@@ -156,20 +160,27 @@ public class GameManager : MonoBehaviour {
     }
 
     // not elegant though, but worked
-    IEnumerator EndHouseAppear() {
-        endHouse.GetComponent<Obstacle>().StartMovement();
-        while (true) {
-            if (endHouse.transform.position.x < 11.8) {
-                endHouse.GetComponent<Obstacle>().StopMovement();
-                StopAllObstacles();
-                StartCoroutine(PlayerTriumph());
-                break;
+    IEnumerator EndHouseAppear()
+    {
+
+        if (!gameIsOver)
+        {
+            endHouse.GetComponent<Obstacle>().StartMovement();
+            while (true)
+            {
+                if (endHouse.transform.position.x < 11.7)
+                {
+                    endHouse.GetComponent<Obstacle>().StopMovement();
+                    StopAllObstacles();
+                    StartCoroutine(PlayerTriumph());
+                    break;
+                }
+                yield return null;
             }
-            yield return null;
         }
     }
 
-    IEnumerator PlayerTriumph() {
+        IEnumerator PlayerTriumph() {
         GameObject player = GameObject.FindWithTag("Player");
         player.GetComponent<PlayerController>().Triumph();
         while (true) {
