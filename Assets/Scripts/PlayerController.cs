@@ -20,6 +20,11 @@ public class PlayerController : MonoBehaviour {
     Animator animator;
     AudioSource audioSource;
 
+    [SerializeField]
+    float invincibleAfterHurtTime = 0.5f;
+    float invincibleTimer;
+    bool isInvincible;
+
     public void SetGameIsOver(bool isOver) {
         gameIsOver = isOver;
     }
@@ -50,6 +55,12 @@ public class PlayerController : MonoBehaviour {
                 startDelay -= Time.deltaTime;
             }
         }
+
+        if (Time.time >= invincibleTimer + invincibleAfterHurtTime)
+        {
+            isInvincible = false;
+        }
+
     }
 
     IEnumerator Run(float delay) {
@@ -89,11 +100,26 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Damage() {
+
         Debug.Log("Damaged");
+
+        isInvincible = true;
+        invincibleTimer = Time.time;
+
+
         if (hitPoint > 0) {
             audioSource.PlayOneShot(hitSound);
             hitPoint -= 1;
-            animator.SetTrigger("hit");
+
+            if (isGrounded)
+            {
+                animator.SetTrigger("hit");
+            }
+            else
+            {
+                animator.SetTrigger("hitAir");
+            }
+
         }
         else {
             Die();
@@ -101,7 +127,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.tag == "Obstacle") {
+        if (collision.gameObject.tag == "Obstacle" && !isInvincible) {
             Damage();
         }
         else if (collision.gameObject.tag == "Ground") {
