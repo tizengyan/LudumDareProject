@@ -173,7 +173,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 80762482}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &80762485
 Camera:
   m_ObjectHideFlags: 0
@@ -342,7 +342,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 397692523}
-  - component: {fileID: 397692524}
   - component: {fileID: 397692525}
   - component: {fileID: 397692526}
   m_Layer: 0
@@ -366,14 +365,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &397692524
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397692522}
-  m_Enabled: 1
 --- !u!82 &397692525
 AudioSource:
   m_ObjectHideFlags: 0
