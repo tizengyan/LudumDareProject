@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour {
         startDelay = GameManager.GetInstance().GameStartDelay();
         Debug.Log("start delay = " + startDelay);
         //Invoke("Run", startDelay);
-        StartCoroutine(Run(2f));
+        StartCoroutine(Run(startDelay));
     }
     
     void Update() {

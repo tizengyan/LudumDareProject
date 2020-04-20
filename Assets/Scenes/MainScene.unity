@@ -555,7 +555,7 @@ MonoBehaviour:
   score: {fileID: 1628359392}
   spawnPoints:
   - {fileID: 1540494560}
-  gameStartDelay: 2
+  gameStartDelay: 1
   scoreDemand: 10
   levelLimit: 3
   endHouse: {fileID: 922977340}
