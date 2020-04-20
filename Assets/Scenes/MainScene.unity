@@ -1261,6 +1261,18 @@ PrefabInstance:
       propertyPath: m_UpdateMode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 408302374473734571, guid: 1059a589197a73f4f83ee7f574f362d8,
+        type: 3}
+      propertyPath: characterTexture.Array.data[0]
+      value: 
+      objectReference: {fileID: -2907660153499291619, guid: 88adf3ddfc23f9c4e90acf65a00a8349,
+        type: 3}
+    - target: {fileID: 408302374473734571, guid: 1059a589197a73f4f83ee7f574f362d8,
+        type: 3}
+      propertyPath: characterTexture.Array.data[3]
+      value: 
+      objectReference: {fileID: -6392530516783296442, guid: 88adf3ddfc23f9c4e90acf65a00a8349,
+        type: 3}
     - target: {fileID: 408302374809228557, guid: 1059a589197a73f4f83ee7f574f362d8,
         type: 3}
       propertyPath: m_IsActive
