@@ -34,7 +34,18 @@ public class Spawner : MonoBehaviour {
     IEnumerator Spawning() {
         while (!gameIsOver) {
             spawnInterval = Random.Range(intervalMin, intervalMax);
-            int spIndex = Random.Range(0, spawnPoints.Length);
+            float roll = Random.Range(0f, 1f);
+            int spIndex = 0;
+            if (roll > 0.5) {
+                roll = Random.Range(0, 1f);
+                if (roll > 0.5) {
+                    spIndex = 1;
+                }
+                else {
+                    spIndex = 2;
+                }
+            }
+            //int spIndex = Random.Range(0, spawnPoints.Length);
             if (spawnPoints.Length > 0) {
                 //Debug.Log("spIndex = " + spIndex);
                 //Debug.Log(obstaclePrefabs[spIndex]);

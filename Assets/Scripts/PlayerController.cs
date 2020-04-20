@@ -68,8 +68,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     IEnumerator MoveToTheDoor() {
+        float speed = 10f;
+        float speedBase = GameManager.GetInstance().GetSpeedBase();
+        float speedRiseRatio = GameManager.GetInstance().GetSpeedRatio();
+        speed *= speedBase + speedRiseRatio;
         while (true) {
-            transform.position = new Vector2(transform.position.x + 8 * Time.deltaTime, transform.position.y);
+            transform.position = new Vector2(transform.position.x + speed * Time.deltaTime, transform.position.y);
             // enter the door
             if (transform.position.x > 20 + 1) {
                 //callback
