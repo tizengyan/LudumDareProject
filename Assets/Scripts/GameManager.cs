@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
     private int scoreDemand = 10, levelLimit = 10;
 
     [SerializeField]
-    private float speedRiseRatio = 0.1f;
+    private float speedBase = 1f, speedRiseRatio = 0.1f;
 
     [SerializeField]
     private GameObject endHouse;
@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour {
     public float GameStartDelay() => gameStartDelay;
     public int GetCurScore() => curScore;
     public float GetSpeedRatio() => speedRiseRatio;
+    public float GetSpeedBase() => speedBase;
 
     public int GetHP() {
         GameObject player = GameObject.FindWithTag("Player");

@@ -12,7 +12,9 @@ public class Obstacle : MonoBehaviour {
 
     void Start() {
         float speedRatio = GameManager.GetInstance().GetSpeedRatio();
-        speed *= 1 + speedRatio;
+        float speedBase = GameManager.GetInstance().GetSpeedBase();
+        speedBase = Mathf.Clamp(speedBase, 0.1f, 10f);
+        speed *= speedBase + speedRatio;
         Debug.Log(gameObject.name + "'s speed ratio is " + speedRatio);
     }
     
