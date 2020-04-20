@@ -11,7 +11,9 @@ public class Obstacle : MonoBehaviour {
     bool isStoped = false;
 
     void Start() {
-
+        float speedRatio = GameManager.GetInstance().GetSpeedRatio();
+        speed *= 1 + speedRatio;
+        Debug.Log(gameObject.name + "'s speed ratio is " + speedRatio);
     }
     
     void Update() {

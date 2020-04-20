@@ -8,6 +8,8 @@ public class Mover : MonoBehaviour {
     [SerializeField]
     private float speed = -1f;
     [SerializeField]
+    private bool isSpeedSyncWithGM = false;
+    [SerializeField]
     private bool isCycle = true;
     [SerializeField]
     private bool isNeedDelay = true;
@@ -17,7 +19,11 @@ public class Mover : MonoBehaviour {
 
     void Start() {
         startDelay = GameManager.GetInstance().GameStartDelay();
-        //Debug.Log("Mover start delay = " + startDelay);
+        if (isSpeedSyncWithGM) {
+            float speedRatio = GameManager.GetInstance().GetSpeedRatio();
+            speed *= 1 + speedRatio;
+            Debug.Log(gameObject.name + "'s speed ratio is " + speedRatio);
+        }
     }
     
     void Update() {

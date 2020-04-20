@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour {
     private int scoreDemand = 10, levelLimit = 10;
 
     [SerializeField]
+    private float speedRiseRatio = 0.1f;
+
+    [SerializeField]
     private GameObject endHouse;
 
     static GameManager instance = null;
@@ -28,6 +31,7 @@ public class GameManager : MonoBehaviour {
 
     public float GameStartDelay() => gameStartDelay;
     public int GetCurScore() => curScore;
+    public float GetSpeedRatio() => speedRiseRatio;
 
     public int GetHP() {
         GameObject player = GameObject.FindWithTag("Player");
@@ -46,6 +50,8 @@ public class GameManager : MonoBehaviour {
             Debug.LogWarning("Destroy duplicate gm");
             Destroy(gameObject);
         }
+        curLevel = DataManager.CurLevel;
+        speedRiseRatio *= curLevel - 1;
     }
 
     void Start() {
@@ -54,7 +60,7 @@ public class GameManager : MonoBehaviour {
         curScore = 0;
         nextAddScoreTime = Time.time + 1;
         GameStart();
-
+        
         // not elegant
         endHouse.GetComponent<Obstacle>().StopMovement();
     }
@@ -70,10 +76,10 @@ public class GameManager : MonoBehaviour {
     IEnumerator AddScore() {
         yield return new WaitForSeconds(gameStartDelay);
         while (!gameIsOver) {
-            Debug.Log("gameisOver " + gameIsOver);
+            //Debug.Log("gameisOver " + gameIsOver);
             curScore += 1;
             score.text = "Score: " + curScore;
-            Debug.Log("Setting score to " + curScore);
+            //Debug.Log("Setting score to " + curScore);
             if (curScore >= scoreDemand) {
                 levelClear();
             }
@@ -83,10 +89,6 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager GetInstance() {
         return instance;
-    }
-
-    public void RefreshHitPoint() {
-
     }
 
     public void GameOver() {
@@ -142,16 +144,13 @@ public class GameManager : MonoBehaviour {
     public void Restart() => SceneManager.LoadScene("MainScene");
 
     void levelClear() {
-        curLevel = DataManager.CurLevel;
         Debug.Log("level clear " + curLevel);
         curLevel += 1;
         DataManager.CurLevel = curLevel;
         DataManager.TotalScore += curScore;
-        // goto next level
         StopCoroutine("AddScore");
-        //StopAllObstacles();
         StopPlayer();
-
+        // entering end house
         StartCoroutine(EndHouseAppear());
     }
 

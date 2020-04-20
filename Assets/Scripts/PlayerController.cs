@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         startDelay = GameManager.GetInstance().GameStartDelay();
-        Debug.Log("start delay = " + startDelay);
+        //Debug.Log("start delay = " + startDelay);
         //Invoke("Run", startDelay);
         StartCoroutine(Run(startDelay));
     }
@@ -85,11 +85,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     IEnumerator Run(float delay) {
-        Debug.Log("Run " + delay);
         yield return new WaitForSeconds(delay);
         animator.SetBool("isRunning", true);
         animator.SetBool("isJumping", false);
-        //audioSource.Play();
         if (coroutineStepSound == null) {
            coroutineStepSound = StartCoroutine("PlayFootStepSound");
         }
@@ -124,7 +122,7 @@ public class PlayerController : MonoBehaviour {
 
     void Die() {
         Debug.Log("Dead");
-        audioSource.PlayOneShot(dieSound);
+        audioSource.PlayOneShot(dieSound, 1f);
         GameManager.GetInstance().GameOver();
         animator.SetBool("gameIsOver", true);
     }
