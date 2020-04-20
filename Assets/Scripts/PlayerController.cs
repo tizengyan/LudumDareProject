@@ -8,11 +8,14 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private int hitPoint = 3;
     [SerializeField]
-    private AudioClip jumpSound, landSound, hitSound;
+    private float footStepFrequency = 0.2f;
+    [SerializeField]
+    private AudioClip jumpSound, landSound, hitSound, dieSound;
 
     float startDelay = 2f;
     bool gameIsOver = false;
     bool isGrounded = false;
+    Coroutine coroutineStepSound = null;
     Rigidbody2D rb2d;
     Animator animator;
     AudioSource audioSource;
@@ -27,7 +30,9 @@ public class PlayerController : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
         gameIsOver = false;
         startDelay = GameManager.GetInstance().GameStartDelay();
-        Invoke("Run", startDelay);
+        Debug.Log("start delay = " + startDelay);
+        //Invoke("Run", startDelay);
+        StartCoroutine(Run(2f));
     }
     
     void Update() {
@@ -43,12 +48,14 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    void Run() {
-        if (startDelay < 0) {
-            animator.SetBool("isRunning", true);
-            animator.SetBool("isJumping", false);
-            //audioSource.Play();
-            StartCoroutine("PlayFootStepSound");
+    IEnumerator Run(float delay) {
+        Debug.Log("Run " + delay);
+        yield return new WaitForSeconds(delay);
+        animator.SetBool("isRunning", true);
+        animator.SetBool("isJumping", false);
+        //audioSource.Play();
+        if (coroutineStepSound == null) {
+           coroutineStepSound = StartCoroutine("PlayFootStepSound");
         }
     }
 
@@ -56,31 +63,37 @@ public class PlayerController : MonoBehaviour {
         Debug.Log("Jumping");
         audioSource.PlayOneShot(jumpSound);
         rb2d.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
-        StopCoroutine("PlayFootStepSound");
+        if (coroutineStepSound != null) {
+            StopCoroutine("PlayFootStepSound");
+            coroutineStepSound = null;
+        }
         animator.SetBool("isJumping", true);
     }
 
     IEnumerator PlayFootStepSound() {
         while (!gameIsOver) {
             audioSource.Play();
-            yield return new WaitForSeconds(.2f);
+            yield return new WaitForSeconds(footStepFrequency);
         }
     }
 
     void Die() {
         Debug.Log("Dead");
+        audioSource.PlayOneShot(dieSound);
         GameManager.GetInstance().GameOver();
         animator.SetBool("gameIsOver", true);
     }
 
     void Damage() {
         Debug.Log("Damaged");
-        audioSource.PlayOneShot(hitSound);
-        hitPoint -= 1;
-        if (hitPoint <= 0) {
+        if (hitPoint > 0) {
+            audioSource.PlayOneShot(hitSound);
+            hitPoint -= 1;
+            animator.SetTrigger("hit");
+        }
+        else {
             Die();
         }
-        animator.SetTrigger("hit");
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
@@ -88,11 +101,13 @@ public class PlayerController : MonoBehaviour {
             Damage();
         }
         else if (collision.gameObject.tag == "Ground") {
-            Debug.Log("Hit ground.");
+            Debug.Log("Hit ground");
             audioSource.PlayOneShot(landSound);
             isGrounded = true;
             //animator.SetBool("isJumping", false);
-            Run();
+            if (startDelay < 0) {
+                StartCoroutine(Run(0));
+            }
         }
     }
 
