@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour {
         StopPlayer();
         gameIsOver = true;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3.2f);
 
         mainMenu.GetComponent<UI_MainMenuController>().GameOver();
     }
