@@ -15,6 +15,10 @@ public class CharacterRandomizer : MonoBehaviour
     public UI_SwipeController swipeController;
     public UI_MainMenuController UIController;
 
+    public void ShowTutorialMenu() {
+        swipeController.ShowTutorial();
+    }
+
     public void ChangeCharacter()
     {
         if (finishedCharacters == maxCharacters)

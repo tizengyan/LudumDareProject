@@ -556,7 +556,7 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 1540494560}
   gameStartDelay: 2
-  scoreDemand: 10
+  scoreDemand: 5
   levelLimit: 10
 --- !u!4 &674655236
 Transform:
@@ -1108,6 +1108,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 408302374473734570, guid: 1059a589197a73f4f83ee7f574f362d8,
+        type: 3}
+      propertyPath: m_UpdateMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 408302374809228557, guid: 1059a589197a73f4f83ee7f574f362d8,
         type: 3}
       propertyPath: m_IsActive
@@ -1116,7 +1121,7 @@ PrefabInstance:
     - target: {fileID: 408302374865256114, guid: 1059a589197a73f4f83ee7f574f362d8,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 408302375315947023, guid: 1059a589197a73f4f83ee7f574f362d8,
         type: 3}

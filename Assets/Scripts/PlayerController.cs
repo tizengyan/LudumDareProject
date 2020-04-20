@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        gameIsOver = false;
         startDelay = GameManager.GetInstance().GameStartDelay();
         Debug.Log("start delay = " + startDelay);
         //Invoke("Run", startDelay);
@@ -83,6 +82,15 @@ public class PlayerController : MonoBehaviour {
             coroutineStepSound = null;
         }
         animator.SetBool("isJumping", true);
+    }
+
+    public void Stop() {
+        gameIsOver = true;
+        if (coroutineStepSound != null) {
+            StopCoroutine("PlayFootStepSound");
+            coroutineStepSound = null;
+        }
+        //rb2d.isKinematic = true;
     }
 
     IEnumerator PlayFootStepSound() {

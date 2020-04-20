@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
     static GameManager instance = null;
     bool gameIsOver = false;
     int curScore = 0;
+    static int curLevel = 1;
     float nextAddScoreTime;
 
     public float GameStartDelay() => gameStartDelay;
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void Awake() {
+        Debug.Log("Awake");
         if (null == instance) {
             instance = this;
         }
@@ -44,10 +46,11 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start() {
-        gameIsOver = false;
+        Debug.Log("Start");
+        //gameIsOver = false;
         curScore = 0;
         nextAddScoreTime = Time.time + 1;
-        Invoke("GameStart", 2);
+        GameStart();
     }
     
     void Update() {
@@ -59,10 +62,12 @@ public class GameManager : MonoBehaviour {
     }
 
     IEnumerator AddScore() {
+        yield return new WaitForSeconds(gameStartDelay);
         while (!gameIsOver) {
+            Debug.Log("gameisOver " + gameIsOver);
             curScore += 1;
             score.text = "Score: " + curScore;
-            //Debug.Log("Setting score to " + curScore);
+            Debug.Log("Setting score to " + curScore);
             if (curScore >= scoreDemand) {
                 levelClear();
             }
@@ -80,21 +85,30 @@ public class GameManager : MonoBehaviour {
 
     public void GameOver() {
         Debug.Log("Game Over");
+        DataManager.TotalScore += curScore;
         mainMenu.GetComponent<UI_MainMenuController>().GameOver();
         StopCoroutine("AddScore");
         StopAllObstacles();
-        StopPlayerInput();
+        StopPlayer();
         gameIsOver = true;
     }
 
-    void StopPlayerInput() {
+    public void StopGame() {
+        Debug.Log("Stop game");
+        StopCoroutine("AddScore");
+        StopAllObstacles();
+        StopPlayer();
+        gameIsOver = true;
+    }
+
+    void StopPlayer() {
         if (GameObject.FindWithTag("Player") == null) {
             Debug.LogError("Player not found");
             return;
         }
         PlayerController pc = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         if (pc) {
-            pc.SetGameIsOver(true);
+            pc.Stop();
         }
     }
 
@@ -122,14 +136,17 @@ public class GameManager : MonoBehaviour {
     public void Restart() => SceneManager.LoadScene("MainScene");
 
     void levelClear() {
-        int curLevel = PlayerPrefs.GetInt("curLevel", 1);
+        Debug.Log("level clear " + curLevel);
         curLevel += 1;
+        DataManager.CurLevel = curLevel;
+        DataManager.TotalScore += curScore;
         if (curLevel >= levelLimit) {
-            PlayerPrefs.SetInt("curLevel", 1);
             mainMenu.GetComponent<UI_MainMenuController>().GameWin();
         }
-        PlayerPrefs.SetInt("curLevel", curLevel);
         // goto next level
-
+        mainMenu.GetComponent<UI_MainMenuController>().LoadSwipeScene();
+        StopCoroutine("AddScore");
+        StopAllObstacles();
+        StopPlayer();
     }
 }

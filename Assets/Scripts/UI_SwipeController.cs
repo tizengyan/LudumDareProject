@@ -7,6 +7,10 @@ public class UI_SwipeController : MonoBehaviour
     public Animator characterAnimator;
     public GameObject tutorialMenu;
 
+    private void Awake() {
+        characterAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+    }
+
     public void swipeNo ()
     {
         characterAnimator.SetTrigger("TriggerNo");
@@ -15,17 +19,17 @@ public class UI_SwipeController : MonoBehaviour
     public void swipeYes()
     {
         characterAnimator.SetTrigger("TriggerYes");
-        StartCoroutine("StartTutorial");
+        //StartCoroutine("StartTutorial");
+    }
+
+    public void ShowTutorial() {
+        tutorialMenu.SetActive(true);
     }
 
     IEnumerator StartTutorial()
     {
         yield return new WaitForSeconds(1f);
         tutorialMenu.SetActive(true);
-        while (true) {
-            StartGame();
-            yield return new WaitForSeconds(.1f);
-        }
     }
 
     private void Update()
@@ -38,7 +42,9 @@ public class UI_SwipeController : MonoBehaviour
         if (tutorialMenu.activeSelf && Input.GetButtonDown("Jump"))
         {
             Debug.Log("Start game!");
-            StopCoroutine("StartTutorial");
+            Time.timeScale = 1;
+            //gameObject.SetActive(false);
+            DataManager.IsGameStart = true;
             GameManager.GetInstance().Restart();
         }
     }

@@ -16,9 +16,6 @@ public class UI_MainMenuController : MonoBehaviour
 
     public bool isPaused;
 
-    [SerializeField]
-    private TextMeshPro finalScore;
-
     public void LoadSwipeScene()
     {
         swipeMenu.SetActive(true);
@@ -26,7 +23,13 @@ public class UI_MainMenuController : MonoBehaviour
     }
 
     void Start() {
-        if (mainMenu.activeSelf) {
+        if (DataManager.IsGameStart) {
+            mainMenu.SetActive(false);
+            Time.timeScale = 1f;
+        }
+        else {
+            //GameManager.GetInstance().StopGame();
+            mainMenu.SetActive(true);
             Time.timeScale = 0;
         }
     }
@@ -84,16 +87,16 @@ public class UI_MainMenuController : MonoBehaviour
         Time.timeScale = 0f;
         isPaused = true;
 
-        int score = GameManager.GetInstance().GetCurScore();
+        int score = DataManager.TotalScore;
         // find score obj
-        //finalScore.text = "YOUR SCORE\n" + score;
         GameObject scoreObj = gameOverPage.transform.GetChild(3).gameObject;
         TextMeshProUGUI scoreText = scoreObj.GetComponent<TextMeshProUGUI>();
-        Debug.Log("get score obj " + scoreObj + " get score text " + scoreText);
+        //Debug.Log("get score obj " + scoreObj + " get score text " + scoreText);
         if (scoreText) {
             Debug.Log("set score text " + scoreText);
             scoreText.text = "YOUR SCORE\n" + score;
         }
+        DataManager.ClearData();
     }
 
     public void GameWin()
