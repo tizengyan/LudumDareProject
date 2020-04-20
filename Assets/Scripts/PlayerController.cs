@@ -121,10 +121,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Die() {
+        animator.SetBool("gameIsOver", true);
+        animator.SetTrigger("Dead");
+
         Debug.Log("Dead");
         audioSource.PlayOneShot(dieSound, 1f);
-        GameManager.GetInstance().GameOver();
-        animator.SetBool("gameIsOver", true);
+        GameManager.GetInstance().StartCoroutine("GameOver");
     }
 
     void Damage() {
