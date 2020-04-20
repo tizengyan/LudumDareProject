@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour {
         gameIsOver = isOver;
     }
 
+    public int GetHP() {
+        return hitPoint;
+    }
+
     void Start() {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();

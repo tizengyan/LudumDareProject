@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class UI_MainMenuController : MonoBehaviour
@@ -15,10 +16,19 @@ public class UI_MainMenuController : MonoBehaviour
 
     public bool isPaused;
 
+    [SerializeField]
+    private TextMeshPro finalScore;
+
     public void LoadSwipeScene()
     {
         swipeMenu.SetActive(true);
         mainMenu.SetActive(false);
+    }
+
+    void Start() {
+        if (mainMenu.activeSelf) {
+            Time.timeScale = 0;
+        }
     }
 
     private void Update()
@@ -73,6 +83,17 @@ public class UI_MainMenuController : MonoBehaviour
         gameOverPage.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+
+        int score = GameManager.GetInstance().GetCurScore();
+        // find score obj
+        //finalScore.text = "YOUR SCORE\n" + score;
+        GameObject scoreObj = gameOverPage.transform.GetChild(3).gameObject;
+        TextMeshProUGUI scoreText = scoreObj.GetComponent<TextMeshProUGUI>();
+        Debug.Log("get score obj " + scoreObj + " get score text " + scoreText);
+        if (scoreText) {
+            Debug.Log("set score text " + scoreText);
+            scoreText.text = "YOUR SCORE\n" + score;
+        }
     }
 
     public void GameWin()

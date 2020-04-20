@@ -25,7 +25,7 @@ public class Obstacle : MonoBehaviour {
         }
     }
 
-    public void stopMovement() {
+    public void StopMovement() {
         isStoped = true;
     }
 

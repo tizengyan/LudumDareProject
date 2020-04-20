@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour {
-    public GameObject gameOverUI;
-
+    [SerializeField]
+    private GameObject mainMenu;
     [SerializeField]
     private Text score;
     [SerializeField]
     private Spawner[] spawnPoints;
     [SerializeField]
     private float gameStartDelay = 2f;
+    [SerializeField]
+    private int scoreDemand = 10, levelLimit = 10;
 
     static GameManager instance = null;
     bool gameIsOver = false;
@@ -20,6 +23,15 @@ public class GameManager : MonoBehaviour {
     float nextAddScoreTime;
 
     public float GameStartDelay() => gameStartDelay;
+    public int GetCurScore() => curScore;
+
+    public int GetHP() {
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player) {
+            return player.GetComponent<PlayerController>().GetHP();
+        }
+        return 0;
+    }
 
     void Awake() {
         if (null == instance) {
@@ -32,7 +44,6 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start() {
-        gameOverUI.SetActive(false);
         gameIsOver = false;
         curScore = 0;
         nextAddScoreTime = Time.time + 1;
@@ -40,15 +51,11 @@ public class GameManager : MonoBehaviour {
     }
     
     void Update() {
-        //if (!gameIsOver && Time.time > nextAddScoreTime) {
-        //    nextAddScoreTime = Time.time + 1;
-        //    curScore += 1;
-        //    score.text = "Score: " + curScore;
-        //}
+        
     }
 
     void GameStart() {
-        StartCoroutine(AddScore());
+        StartCoroutine("AddScore");
     }
 
     IEnumerator AddScore() {
@@ -56,6 +63,9 @@ public class GameManager : MonoBehaviour {
             curScore += 1;
             score.text = "Score: " + curScore;
             //Debug.Log("Setting score to " + curScore);
+            if (curScore >= scoreDemand) {
+                levelClear();
+            }
             yield return new WaitForSeconds(1);
         }
     }
@@ -70,7 +80,8 @@ public class GameManager : MonoBehaviour {
 
     public void GameOver() {
         Debug.Log("Game Over");
-        gameOverUI.SetActive(true);
+        mainMenu.GetComponent<UI_MainMenuController>().GameOver();
+        StopCoroutine("AddScore");
         StopAllObstacles();
         StopPlayerInput();
         gameIsOver = true;
@@ -96,7 +107,7 @@ public class GameManager : MonoBehaviour {
         GameObject[] obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
         foreach(var ob in obstacles) {
             if (ob.GetComponent<Obstacle>()) {
-                ob.GetComponent<Obstacle>().stopMovement();
+                ob.GetComponent<Obstacle>().StopMovement();
             }
         }
         // stop bg movemment
@@ -109,4 +120,16 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Restart() => SceneManager.LoadScene("MainScene");
+
+    void levelClear() {
+        int curLevel = PlayerPrefs.GetInt("curLevel", 1);
+        curLevel += 1;
+        if (curLevel >= levelLimit) {
+            PlayerPrefs.SetInt("curLevel", 1);
+            mainMenu.GetComponent<UI_MainMenuController>().GameWin();
+        }
+        PlayerPrefs.SetInt("curLevel", curLevel);
+        // goto next level
+
+    }
 }
