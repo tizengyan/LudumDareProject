@@ -162,7 +162,6 @@ public class GameManager : MonoBehaviour {
     // not elegant though, but worked
     IEnumerator EndHouseAppear()
     {
-
         if (!gameIsOver)
         {
             endHouse.GetComponent<Obstacle>().StartMovement();
@@ -180,7 +179,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-        IEnumerator PlayerTriumph() {
+    IEnumerator PlayerTriumph() {
         GameObject player = GameObject.FindWithTag("Player");
         player.GetComponent<PlayerController>().Triumph();
         while (true) {

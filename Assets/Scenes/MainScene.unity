@@ -971,6 +971,10 @@ PrefabInstance:
       propertyPath: speed
       value: -0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 1861425225, guid: e3abb573a599f084ba69aa9efef361e0, type: 3}
+      propertyPath: leftPosX
+      value: -22
+      objectReference: {fileID: 0}
     - target: {fileID: 2127291537, guid: e3abb573a599f084ba69aa9efef361e0, type: 3}
       propertyPath: isSpeedSyncWithGM
       value: 1
