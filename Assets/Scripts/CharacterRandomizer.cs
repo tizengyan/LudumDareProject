@@ -7,13 +7,12 @@ public class CharacterRandomizer : MonoBehaviour
 {
     public int maxCharacters;
     [SerializeField] private int activeCharacter = -1;
-    private int finishedCharacters = 0;
 
     public Image image;
     public Sprite[] characterTexture;
-    public bool[] characterIsSelected;
     public UI_SwipeController swipeController;
     public UI_MainMenuController UIController;
+
 
     public void ShowTutorialMenu() {
         swipeController.ShowTutorial();
@@ -21,7 +20,9 @@ public class CharacterRandomizer : MonoBehaviour
 
     public void ChangeCharacter()
     {
-        if (finishedCharacters == maxCharacters)
+        Debug.Log("Finished Character: " + DataManager.FinishedCharacters);
+
+        if (DataManager.FinishedCharacters == maxCharacters)
         {
             UIController.GameWin();
 
@@ -39,9 +40,9 @@ public class CharacterRandomizer : MonoBehaviour
             activeCharacter = 0;
         }
 
-        if (finishedCharacters != maxCharacters)
+        if (DataManager.FinishedCharacters != maxCharacters)
         {
-            while (characterIsSelected[activeCharacter])
+            while (DataManager.CharacterIsSelected[activeCharacter])
             {
                 activeCharacter++;
 
@@ -57,19 +58,15 @@ public class CharacterRandomizer : MonoBehaviour
 
     public void CharacterSelect()
     {
-        characterIsSelected[activeCharacter] = true;
+        DataManager.CharacterIsSelected[activeCharacter] = true;
 
-        finishedCharacters++;
+        DataManager.AddCharacter();
     }
 
     public void CleanGameData()
     {
         activeCharacter = -1;
-        finishedCharacters = 0;
 
-        for (int i = 0; i < maxCharacters; i++)
-        {
-            characterIsSelected[i] = false;
-        }
+        DataManager.ClearCharacterData();
     }
 }
