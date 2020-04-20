@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour {
     IEnumerator EndHouseAppear() {
         endHouse.GetComponent<Obstacle>().StartMovement();
         while (true) {
-            if (endHouse.transform.position.x < 11.7) {
+            if (endHouse.transform.position.x < 11.8) {
                 endHouse.GetComponent<Obstacle>().StopMovement();
                 StopAllObstacles();
                 StartCoroutine(PlayerTriumph());
