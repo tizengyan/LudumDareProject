@@ -184,7 +184,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -357,7 +357,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 438960084}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.5, y: -1, z: 0}
+  m_LocalPosition: {x: 17.5, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1540494561}
@@ -555,7 +555,7 @@ MonoBehaviour:
   score: {fileID: 1628359392}
   spawnPoints:
   - {fileID: 1540494560}
-  gameStartDelay: 2
+  gameStartDelay: 1.5
   scoreDemand: 10
   levelLimit: 3
   endHouse: {fileID: 922977340}
@@ -854,7 +854,7 @@ MonoBehaviour:
   - {fileID: 5795178983079769849, guid: 883c0a3d0333b6647afd5766c35b5285, type: 3}
   intervalMin: 1
   intervalMax: 3
-  offsetY: 3
+  offsetY: 3.5
   isNeedOffset: 000100
 --- !u!4 &1540494561
 Transform:
@@ -1128,7 +1128,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1865117437}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.45, y: 1.73, z: 0}
+  m_LocalPosition: {x: 17.45, y: 0.67, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1540494561}
