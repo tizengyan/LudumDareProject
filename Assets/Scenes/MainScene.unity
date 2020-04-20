@@ -808,6 +808,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9192961736452143211, guid: e3abb573a599f084ba69aa9efef361e0,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 300
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3abb573a599f084ba69aa9efef361e0, type: 3}
 --- !u!1 &1540494559
@@ -849,6 +854,8 @@ MonoBehaviour:
   - {fileID: 5795178983079769849, guid: 883c0a3d0333b6647afd5766c35b5285, type: 3}
   intervalMin: 1
   intervalMax: 3
+  offsetY: 3
+  isNeedOffset: 000100
 --- !u!4 &1540494561
 Transform:
   m_ObjectHideFlags: 0
