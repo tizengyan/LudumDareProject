@@ -15,7 +15,7 @@ public class Spawner : MonoBehaviour {
     private bool[] isNeedOffset;
 
     float startDelay = 2f;
-    float spawnInterval = 2.5f;
+    public float spawnInterval = 1.8f;
     bool gameIsOver = false;
 
     public void setGameIsOver(bool isOver) {
