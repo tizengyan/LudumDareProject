@@ -29,7 +29,7 @@ public class Obstacle : MonoBehaviour {
         isStoped = true;
     }
 
-    void OnTriggerEnter2D(Collider2D collision) {
-        
+    public void StartMovement() {
+        isStoped = false;
     }
 }

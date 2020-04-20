@@ -62,6 +62,28 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    public void Triumph() {
+        BeInvincible();
+        StartCoroutine(MoveToTheDoor());
+    }
+
+    IEnumerator MoveToTheDoor() {
+        while (true) {
+            transform.position = new Vector2(transform.position.x + 8 * Time.deltaTime, transform.position.y);
+            // enter the door
+            if (transform.position.x > 20 + 1) {
+                //callback
+                break;
+            }
+            yield return null;
+        }
+    }
+
+    void BeInvincible() {
+        isInvincible = true;
+        invincibleAfterHurtTime = 100;
+    }
+
     IEnumerator Run(float delay) {
         Debug.Log("Run " + delay);
         yield return new WaitForSeconds(delay);

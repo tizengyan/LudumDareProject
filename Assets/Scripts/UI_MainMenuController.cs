@@ -106,6 +106,15 @@ public class UI_MainMenuController : MonoBehaviour
         gameWinPage.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+
+        int score = DataManager.TotalScore;
+        GameObject scoreObj = gameWinPage.transform.GetChild(3).gameObject;
+        TextMeshProUGUI scoreText = scoreObj.GetComponent<TextMeshProUGUI>();
+        if (scoreText) {
+            Debug.Log("set score text " + scoreText);
+            scoreText.text = "YOUR SCORE\n" + score;
+        }
+        DataManager.ClearData();
     }
 
     public void Restart()

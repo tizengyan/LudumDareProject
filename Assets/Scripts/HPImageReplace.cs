@@ -15,7 +15,7 @@ public class HPImageReplace : MonoBehaviour
 
     IEnumerator RefreshImg() {
         while (true) {
-            currentHealth = GameManager.GetInstance().GetHP();
+            currentHealth = GameManager.GetInstance().GetHP() + 1;
             if (currentHealth < hpImage.Length) {
                 image.sprite = hpImage[currentHealth];
             }

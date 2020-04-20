@@ -17,10 +17,13 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private int scoreDemand = 10, levelLimit = 10;
 
+    [SerializeField]
+    private GameObject endHouse;
+
     static GameManager instance = null;
     bool gameIsOver = false;
     int curScore = 0;
-    static int curLevel = 1;
+    int curLevel = 1;
     float nextAddScoreTime;
 
     public float GameStartDelay() => gameStartDelay;
@@ -51,6 +54,9 @@ public class GameManager : MonoBehaviour {
         curScore = 0;
         nextAddScoreTime = Time.time + 1;
         GameStart();
+
+        // not elegant
+        endHouse.GetComponent<Obstacle>().StopMovement();
     }
     
     void Update() {
@@ -136,17 +142,47 @@ public class GameManager : MonoBehaviour {
     public void Restart() => SceneManager.LoadScene("MainScene");
 
     void levelClear() {
+        curLevel = DataManager.CurLevel;
         Debug.Log("level clear " + curLevel);
         curLevel += 1;
         DataManager.CurLevel = curLevel;
         DataManager.TotalScore += curScore;
-        if (curLevel >= levelLimit) {
-            mainMenu.GetComponent<UI_MainMenuController>().GameWin();
-        }
         // goto next level
-        mainMenu.GetComponent<UI_MainMenuController>().LoadSwipeScene();
         StopCoroutine("AddScore");
-        StopAllObstacles();
+        //StopAllObstacles();
         StopPlayer();
+
+        StartCoroutine(EndHouseAppear());
+    }
+
+    // not elegant though, but worked
+    IEnumerator EndHouseAppear() {
+        endHouse.GetComponent<Obstacle>().StartMovement();
+        while (true) {
+            if (endHouse.transform.position.x < 11.7) {
+                endHouse.GetComponent<Obstacle>().StopMovement();
+                StopAllObstacles();
+                StartCoroutine(PlayerTriumph());
+                break;
+            }
+            yield return null;
+        }
+    }
+
+    IEnumerator PlayerTriumph() {
+        GameObject player = GameObject.FindWithTag("Player");
+        player.GetComponent<PlayerController>().Triumph();
+        while (true) {
+            if (player.transform.position.x > 20) {
+                if (curLevel > levelLimit) {
+                    mainMenu.GetComponent<UI_MainMenuController>().GameWin();
+                }
+                else {
+                    mainMenu.GetComponent<UI_MainMenuController>().LoadSwipeScene();
+                }
+                break;
+            }
+            yield return null;
+        }
     }
 }
