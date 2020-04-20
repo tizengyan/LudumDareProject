@@ -9,6 +9,8 @@ public class Mover : MonoBehaviour {
     private float speed = -1f;
     [SerializeField]
     private bool isCycle = true;
+    [SerializeField]
+    private bool isNeedDelay = true;
 
     float startDelay = -1f;
     bool gameIsOver = false;
@@ -20,7 +22,7 @@ public class Mover : MonoBehaviour {
     
     void Update() {
         if (!gameIsOver) {
-            if (startDelay < 0) {
+            if (!isNeedDelay || startDelay < 0) {
                 if (transform.position.x > leftPosX) {
                     transform.position = new Vector2(transform.position.x + speed * Time.deltaTime, transform.position.y);
                 }

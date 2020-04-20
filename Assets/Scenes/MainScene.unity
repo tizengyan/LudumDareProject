@@ -556,6 +556,8 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 1540494560}
   gameStartDelay: 2
+  scoreDemand: 10
+  levelLimit: 10
 --- !u!4 &674655236
 Transform:
   m_ObjectHideFlags: 0
@@ -686,9 +688,21 @@ PrefabInstance:
       propertyPath: speed
       value: -0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 272147374, guid: e3abb573a599f084ba69aa9efef361e0, type: 3}
+      propertyPath: isNeedDelay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495191712, guid: e3abb573a599f084ba69aa9efef361e0, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 495191714, guid: e3abb573a599f084ba69aa9efef361e0, type: 3}
       propertyPath: speed
       value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 495191714, guid: e3abb573a599f084ba69aa9efef361e0, type: 3}
+      propertyPath: isNeedDelay
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1496289192, guid: e3abb573a599f084ba69aa9efef361e0, type: 3}
       propertyPath: speed
@@ -757,6 +771,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6228317887179816631, guid: e3abb573a599f084ba69aa9efef361e0,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074036118039506357, guid: e3abb573a599f084ba69aa9efef361e0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3abb573a599f084ba69aa9efef361e0, type: 3}
@@ -1220,6 +1244,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 408302375878244356, guid: 1059a589197a73f4f83ee7f574f362d8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1591592462485358769, guid: 1059a589197a73f4f83ee7f574f362d8,
         type: 3}
       propertyPath: m_IsActive
       value: 0
