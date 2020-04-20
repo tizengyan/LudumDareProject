@@ -511,7 +511,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e5bed17bf3e44d34eb74d362048f3750, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -534,17 +534,16 @@ MonoBehaviour:
   activeCharacter: -1
   image: {fileID: 408302374473734572}
   characterTexture:
-  - {fileID: -2999204403618383273, guid: 88adf3ddfc23f9c4e90acf65a00a8349, type: 3}
-  - {fileID: -4571244713329967725, guid: 88adf3ddfc23f9c4e90acf65a00a8349, type: 3}
-  - {fileID: 2581404140034760343, guid: 88adf3ddfc23f9c4e90acf65a00a8349, type: 3}
-  - {fileID: -2907660153499291619, guid: 88adf3ddfc23f9c4e90acf65a00a8349, type: 3}
-  - {fileID: -290688651833468921, guid: 88adf3ddfc23f9c4e90acf65a00a8349, type: 3}
   - {fileID: -6392530516783296442, guid: 88adf3ddfc23f9c4e90acf65a00a8349, type: 3}
   - {fileID: 4787593875654015170, guid: 88adf3ddfc23f9c4e90acf65a00a8349, type: 3}
+  - {fileID: -290688651833468921, guid: 88adf3ddfc23f9c4e90acf65a00a8349, type: 3}
+  - {fileID: -2907660153499291619, guid: 88adf3ddfc23f9c4e90acf65a00a8349, type: 3}
+  - {fileID: 2581404140034760343, guid: 88adf3ddfc23f9c4e90acf65a00a8349, type: 3}
+  - {fileID: -2999204403618383273, guid: 88adf3ddfc23f9c4e90acf65a00a8349, type: 3}
+  - {fileID: -4571244713329967725, guid: 88adf3ddfc23f9c4e90acf65a00a8349, type: 3}
   - {fileID: -5709629632803607626, guid: 88adf3ddfc23f9c4e90acf65a00a8349, type: 3}
   - {fileID: -4683064504376101063, guid: 88adf3ddfc23f9c4e90acf65a00a8349, type: 3}
   - {fileID: -7774431573587996124, guid: 88adf3ddfc23f9c4e90acf65a00a8349, type: 3}
-  characterIsSelected: 00000000000000000000
   swipeController: {fileID: 408302374809228552}
   UIController: {fileID: 408302375315947020}
 --- !u!1 &408302374548855727

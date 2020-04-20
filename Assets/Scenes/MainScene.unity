@@ -653,10 +653,10 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 1540494560}
   gameStartDelay: 1.5
-  scoreDemand: 10
+  scoreDemand: 13
   levelLimit: 5
-  speedBase: 1.5
-  speedRiseRatio: 0.3
+  speedBase: 2
+  speedRiseRatio: 0.4
   endHouse: {fileID: 922977340}
 --- !u!4 &674655236
 Transform:
@@ -967,8 +967,8 @@ MonoBehaviour:
   - {fileID: 6682246846769919656, guid: d81d0da2858ca6f43bea227cfaf87712, type: 3}
   - {fileID: 3583962921822984127, guid: c64b6d598f27cf1488d0e370881d765c, type: 3}
   - {fileID: 5795178983079769849, guid: 883c0a3d0333b6647afd5766c35b5285, type: 3}
-  intervalMin: 1
-  intervalMax: 3
+  intervalMin: 0.5
+  intervalMax: 2
   offsetY: 3.5
   isNeedOffset: 000100
 --- !u!4 &1540494561
