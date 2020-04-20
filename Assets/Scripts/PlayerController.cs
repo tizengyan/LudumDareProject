@@ -155,6 +155,7 @@ public class PlayerController : MonoBehaviour {
 
         }
         else {
+            hitPoint--;
             Die();
         }
     }
