@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour {
     void Update() {
         if (!gameIsOver) {
             if (startDelay < 0) {
-                if (rb2d && isGrounded && Input.GetKeyDown("space")) {
+                if (rb2d && isGrounded && Input.GetButtonDown("Jump")) {
                     Jump();
                 }
             }
